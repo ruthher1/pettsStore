@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Entities;
+using Microsoft.AspNetCore.Mvc;
+using Services;
 using System.Linq.Expressions;
 using System.Text.Json;
 
@@ -11,6 +13,8 @@ namespace pettsStore.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+        UserService userService = new UserService();
+
         private static readonly List<User> users = new List<User>();
         // GET: api/<UsersController>
         [HttpGet]
@@ -30,11 +34,8 @@ namespace pettsStore.Controllers
         [HttpPost]
         public ActionResult<User> Post([FromBody] User user)
         {
-            int numberOfUsers = System.IO.File.ReadLines("C:\\Users\\This User\\Desktop\\web api\\users.txt").Count();
-            user.userId = numberOfUsers + 1;
-            string userJson = JsonSerializer.Serialize(user);
-            System.IO.File.AppendAllText("C:\\Users\\This User\\Desktop\\web api\\users.txt", userJson + Environment.NewLine);
-            return CreatedAtAction(nameof(Get), new { id = user.userId }, user);
+            User newUser = userService.addUser(user);
+            return CreatedAtAction(nameof(Get), new { id = user.userId }, newUser);
 
         }
 
@@ -42,47 +43,34 @@ namespace pettsStore.Controllers
         public ActionResult<User> Login([FromBody] User newUser)
         {
 
-            using (StreamReader reader = System.IO.File.OpenText("C:\\Users\\This User\\Desktop\\web api\\users.txt"))
+          User user = userService.login(newUser);
+            if (user != null)
             {
-                string? currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
-                {
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.username == newUser.username && user.password == newUser.password)
-                        //return CreatedAtAction(nameof(Get), new { id = user.userId }, user);
-                        return Ok(user);
-                    
-                }
+                return Ok(user);
+
             }
           return NotFound(new { Message = "User not found." });
         }
 
+        [Route("password")]
+        [HttpPost]
+        public ActionResult<User> CheckPasswordStrength([FromBody] string password)
+        {
+            int strength = userService.GetPassStrength(password);
+            return Ok(strength);
+        }
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]User updateUser)
+        public ActionResult<User> Put(int id, [FromBody]User updateUser)
         {
-
-            string textToReplace = string.Empty;
-            using (StreamReader reader = System.IO.File.OpenText("C:\\Users\\This User\\Desktop\\web api\\users.txt"))
+            User user = userService.updateUser(id, updateUser);
+            if (user != null)
             {
-                string currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
-                {
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.userId == id)
-                        textToReplace = currentUserInFile;
-                }
+                return Ok(user);
             }
+            return NotFound(new { Message = "User not found." });
 
-            if (textToReplace != string.Empty)
-            {
-                string text = System.IO.File.ReadAllText("C:\\Users\\This User\\Desktop\\web api\\users.txt");
-                //text = text.Replace(textToReplace, JsonSerializer.Serialize(updateUser));
-                text = text.Replace(textToReplace, JsonSerializer.Serialize(updateUser));
-
-                System.IO.File.WriteAllText("C:\\Users\\This User\\Desktop\\web api\\users.txt", text);
-            }
 
         }
 

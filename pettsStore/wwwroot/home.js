@@ -10,6 +10,9 @@ newUser = () => {
     div.setAttribute("style","visibility:visible")
 }
 
+
+
+
 logIn = async () => {
     const login_username = document.querySelector("#login_username").value;
     const login_password = document.querySelector("#login_password").value;
@@ -56,6 +59,18 @@ const signUp = async () => {
     }   catch (error) {
         alert(error.message);
     }
+};
+
+checkPassword = async () => {
+    const password = document.getElementById("password").value;
+    const response = await fetch('https://localhost:7058/api/users/password',
+        { method: 'POST', body: JSON.stringify(password), headers: { "Content-Type": 'application/json' } })
+    if (!response.ok)
+        throw new Error("Http error. status:" + response.status);
+    const passStrength = await response.json()
+    alert(passStrength > 2 ? "Password is strong" : "Password is weak")
+
+
 };
 
 const update = async () => {

@@ -1,6 +1,6 @@
 ﻿using System.Security.Principal;
 
-namespace pettsStore
+namespace Entities
 {
     public class User
     {
