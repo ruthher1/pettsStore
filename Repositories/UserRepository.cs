@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace Repositories
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         //public User getUserById(int id)
         //{
@@ -20,7 +20,7 @@ namespace Repositories
             return user;
         }
 
-        public User updateUser(int id,  User updateUser)
+        public User updateUser(int id, User updateUser)
         {
             string textToReplace = string.Empty;
             using (StreamReader reader = System.IO.File.OpenText("C:\\Users\\This User\\Desktop\\web api\\users.txt"))
