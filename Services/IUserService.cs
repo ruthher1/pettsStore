@@ -1,12 +1,14 @@
-﻿using Entities;
+﻿using DTOs;
 
 namespace Services
 {
     public interface IUserService
     {
-        User addUser(User user);
+        Task<UserDTO> addUser(UserRegisterDTO user);
+        Task<List<UserDTO>> getAllUsers();
         int GetPassStrength(string password);
-        User login(User newUser);
-        User updateUser(int id, User updateUser);
+        Task<UserDTO> getUserById(int id);
+        Task<UserDTO> login(UserLoginDTO newUser);
+        Task<UserDTO> updateUser(int id, UserRegisterDTO userUpdate);
     }
 }

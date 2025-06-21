@@ -2,37 +2,89 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Login Page</title>
     <script src="home.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 400px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #newUser {
+            margin-top: 20px;
+            visibility: hidden;
+        }
+    </style>
 </head>
 <body>
-    <label for="login_username">User Name</label>
-    <input id="login_username" type="text" />
-    <br /><br />
-    <label for="login_password">Password</label>
-    <input id="login_password" type="password" />
+    <div class="container">
+        <h1>Login</h1>
+        <label for="login_username">User Name</label>
+        <input id="login_username" type="text" />
+        
+        <label for="login_password">Password</label>
+        <input id="login_password" type="password" />
 
-    <button onclick="logIn()">Log In</button>
-    <br /><br />
-    <button onclick="newUser()">New User</button>
-    <br /><br />
-    <br /><br />
-    <br /><br />
-          <div id="newUser" style="visibility :hidden">
-              <label for="username">User Name</label>
-              <input id="username" type="text" />
-              <br /><br />
-              <label for="password">Password</label>
-              <input id="password" type="password" />
-              <br /><br />
-              <label for="firstname">First Name</label>
-              <input id="firstname" type="text" />
-              <br /><br />
-              <label for="lastname">Last Name</label>
-              <input id="lastname" type="text" />
-              <button onclick="checkPassword()">Check Passward</button>
-              <button onclick="signUp()">Sign Up</button>
-          </div>
+        <button onclick="logIn()">Log In</button>
+        <button onclick="newUser()">New User</button>
 
+        <div id="newUser" style="visibility:hidden">
+            <h2>Create New User</h2>
+            <label for="username">User Name</label>
+            <input id="username" type="text" />
+            <label for="password">Password</label>
+            <input id="password" type="password" />
+            <label for="firstname">First Name</label>
+            <input id="firstname" type="text" />
+            <label for="lastname">Last Name</label>
+            <input id="lastname" type="text" />
+            <button onclick="checkPassword()">Check Password</button>
+            <button onclick="signUp()">Sign Up</button>
+        </div>
+    </div>
 </body>
 </html>

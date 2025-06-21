@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Services;
 using System.Linq.Expressions;
 using System.Text.Json;
+using DTOs;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,35 +20,35 @@ namespace pettsStore.Controllers
             this.userService = userService;
         }
 
-        private static readonly List<User> users = new List<User>();
         // GET: api/<UsersController>
         [HttpGet]
-        public IEnumerable<User> Get()
+        public async Task<ActionResult<List<UserDTO>>> Get()
         {
-            return users;
+            return await userService.getAllUsers();
         }
 
         // GET api/<UsersController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<UserDTO>> Get(int id)
         {
-            return "value";
+            return await userService.getUserById(id);
         }
 
         // POST api/<UsersController>
         [HttpPost]
-        public ActionResult<User> Post([FromBody] User user)
+        public async Task<ActionResult<UserDTO>> Post([FromBody] UserRegisterDTO user)
         {
-            User newUser = userService.addUser(user);
-            return CreatedAtAction(nameof(Get), new { id = user.userId }, newUser);
+            UserDTO newUser =await userService.addUser(user);
+            //return CreatedAtAction(nameof(Get), new { id = user.Id }, newUser);
+            return newUser;
 
         }
 
         [HttpPost("login")]
-        public ActionResult<User> Login([FromBody] User newUser)
+        public async Task<ActionResult<UserDTO>> Login([FromBody] UserLoginDTO newUser)
         {
 
-          User user = userService.login(newUser);
+            UserDTO user =await userService.login(newUser);
             if (user != null)
             {
                 return Ok(user);
@@ -66,16 +67,14 @@ namespace pettsStore.Controllers
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public ActionResult<User> Put(int id, [FromBody]User updateUser)
+        public async Task<ActionResult<UserDTO>> Put(int id, [FromBody] UserRegisterDTO updateUser)
         {
-            User user = userService.updateUser(id, updateUser);
+            UserDTO user = await userService.updateUser(id, updateUser);
             if (user != null)
             {
                 return Ok(user);
             }
             return NotFound(new { Message = "User not found." });
-
-
         }
 
         // DELETE api/<UsersController>/5

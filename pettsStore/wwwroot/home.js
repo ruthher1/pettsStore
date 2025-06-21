@@ -1,10 +1,4 @@
 ﻿
-
-
-
-
-
-
 newUser = () => {
     const div = document.querySelector("#newUser")
     div.setAttribute("style","visibility:visible")
@@ -16,9 +10,9 @@ newUser = () => {
 logIn = async () => {
     const login_username = document.querySelector("#login_username").value;
     const login_password = document.querySelector("#login_password").value;
-    const user = { username: login_username, password: login_password,firstname:'',lastname:'' }
+    const user = { Username: login_username, Password: login_password,FirstName:'',LastName:'' }
     try {
-        const response = await fetch("https://localhost:7058/api/users/login", {
+        const response = await fetch("https://localhost:44337/api/users/login", {
             method: "POST",
             body: JSON.stringify(user),
             headers: { "Content-Type": "application/json" }
@@ -29,7 +23,7 @@ logIn = async () => {
         }
         const userResponse = await response.json()
         sessionStorage.setItem("user", JSON.stringify(userResponse));
-        return window.location.href = "https://localhost:7058/site.html";
+        return window.location.href = "https://localhost:44337/site.html";
     } catch (error) {
         alert(error.message);
     }
@@ -37,15 +31,15 @@ logIn = async () => {
 
 }
 const signUp = async () => {
-    const username = document.querySelector("#username").value;
-    const lastname = document.querySelector("#lastname").value;
-    const firstname = document.querySelector("#firstname").value;
-    const password = document.querySelector("#password").value;
+    const Username = document.querySelector("#username").value;
+    const LastName = document.querySelector("#lastname").value;
+    const FirstName = document.querySelector("#firstname").value;
+    const Password = document.querySelector("#password").value;
 
-    const user = { username, lastname, firstname, password };
+    const user = { Username, LastName, FirstName, Password };
 
     try {
-        const response = await fetch("https://localhost:7058/api/users", {
+        const response = await fetch("https://localhost:44337/api/users", {
             method: "POST",
             body: JSON.stringify(user),
             headers: { "Content-Type": "application/json" }
@@ -62,9 +56,9 @@ const signUp = async () => {
 };
 
 checkPassword = async () => {
-    const password = document.getElementById("password").value;
-    const response = await fetch('https://localhost:7058/api/users/password',
-        { method: 'POST', body: JSON.stringify(password), headers: { "Content-Type": 'application/json' } })
+    const Password = document.getElementById("password").value;
+    const response = await fetch('https://localhost:44337/api/users/password',
+        { method: 'POST', body: JSON.stringify(Password), headers: { "Content-Type": 'application/json' } })
     if (!response.ok)
         throw new Error("Http error. status:" + response.status);
     const passStrength = await response.json()
@@ -80,14 +74,14 @@ const update = async () => {
     const update_password = document.querySelector("#update_password").value;
     const user = JSON.parse(sessionStorage.getItem("user"));
     const userUpdate = {
-        username: update_username,
-        lastname: update_lastname,
-        firstname: update_firstname,
-        password: update_password
+        Id:user.id,
+        Username: update_username,
+        LastName: update_lastname,
+        FirstName: update_firstname,
+        Password: update_password
     };
-
     try {
-        const response = await fetch(`https://localhost:7058/api/users/${user.userId}`, {
+        const response = await fetch(`https://localhost:44337/api/users/${userUpdate.Id}`, {
             method: "PUT",
             body: JSON.stringify(userUpdate),
             headers: { "Content-Type": "application/json" }

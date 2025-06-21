@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35825.156
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pettsStore", "pettsStore\pettsStore.csproj", "{20E56850-2E9D-411F-A86D-12F358A49B67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pettsStore", "pettsStore\pettsStore.csproj", "{20E56850-2E9D-411F-A86D-12F358A49B67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories", "Repositories\Repositories.csproj", "{E20A6896-45CF-4EC6-85BC-8EFE34B187C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositories\Repositories.csproj", "{E20A6896-45CF-4EC6-85BC-8EFE34B187C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{19F0B477-BDED-41C6-93E4-DA1099AFA856}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{19F0B477-BDED-41C6-93E4-DA1099AFA856}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{515B28EB-52B4-40F0-89B9-5183A70C321A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{515B28EB-52B4-40F0-89B9-5183A70C321A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPettsStore", "TestPettsStore\TestPettsStore.csproj", "{43021F21-2493-418A-9633-5E0486FD5A3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTOs", "DTOs\DTOs.csproj", "{452DB27E-CBBD-479A-8181-00FB93A4E418}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{515B28EB-52B4-40F0-89B9-5183A70C321A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{515B28EB-52B4-40F0-89B9-5183A70C321A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{515B28EB-52B4-40F0-89B9-5183A70C321A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43021F21-2493-418A-9633-5E0486FD5A3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43021F21-2493-418A-9633-5E0486FD5A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43021F21-2493-418A-9633-5E0486FD5A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43021F21-2493-418A-9633-5E0486FD5A3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{452DB27E-CBBD-479A-8181-00FB93A4E418}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{452DB27E-CBBD-479A-8181-00FB93A4E418}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{452DB27E-CBBD-479A-8181-00FB93A4E418}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{452DB27E-CBBD-479A-8181-00FB93A4E418}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
