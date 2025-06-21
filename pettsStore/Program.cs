@@ -2,6 +2,8 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Repositories;
 using Services;
+using NLog.Web;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,7 @@ builder.Services.AddDbContext<PettsStoreContext>(options=>options.UseSqlServer("
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddOpenApi();
 
+builder.Host.UseNLog();
 
 var app = builder.Build();
 

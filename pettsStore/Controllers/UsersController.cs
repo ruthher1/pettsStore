@@ -38,9 +38,18 @@ namespace pettsStore.Controllers
         [HttpPost]
         public async Task<ActionResult<UserDTO>> Post([FromBody] UserRegisterDTO user)
         {
-            UserDTO newUser =await userService.addUser(user);
+            try
+            { 
+                UserDTO newUser =await userService.addUser(user);
             //return CreatedAtAction(nameof(Get), new { id = user.Id }, newUser);
             return newUser;
+
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+          
 
         }
 
@@ -59,10 +68,10 @@ namespace pettsStore.Controllers
 
         [Route("password")]
         [HttpPost]
-        public ActionResult<User> CheckPasswordStrength([FromBody] string password)
+        public bool CheckPasswordStrength([FromBody] string password)
         {
-            int strength = userService.GetPassStrength(password);
-            return Ok(strength);
+            bool strength = userService.GetPassStrength(password);
+            return strength;
         }
 
         // PUT api/<UsersController>/5

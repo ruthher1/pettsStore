@@ -6,7 +6,7 @@ namespace Services
     {
         Task<UserDTO> addUser(UserRegisterDTO user);
         Task<List<UserDTO>> getAllUsers();
-        int GetPassStrength(string password);
+        bool GetPassStrength(string password);
         Task<UserDTO> getUserById(int id);
         Task<UserDTO> login(UserLoginDTO newUser);
         Task<UserDTO> updateUser(int id, UserRegisterDTO userUpdate);

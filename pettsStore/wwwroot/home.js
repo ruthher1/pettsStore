@@ -62,7 +62,7 @@ checkPassword = async () => {
     if (!response.ok)
         throw new Error("Http error. status:" + response.status);
     const passStrength = await response.json()
-    alert(passStrength > 2 ? "Password is strong" : "Password is weak")
+    alert(passStrength ? "Password is strong" : "Password is weak")
 
 
 };
