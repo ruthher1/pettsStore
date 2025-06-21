@@ -13,7 +13,7 @@ namespace Services
         private readonly ILogger<UserService> _logger;
 
 
-        public UserService(IUserRepository userRepository, IMapper mapper,, ILogger<UsersServices> logger)
+        public UserService(IUserRepository userRepository, IMapper mapper, ILogger<UserService> logger)
         {
             this.userRepository = userRepository;
             _mapper = mapper;
