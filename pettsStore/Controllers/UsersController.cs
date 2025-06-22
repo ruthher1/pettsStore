@@ -40,17 +40,15 @@ namespace pettsStore.Controllers
         {
             try
             { 
-                UserDTO newUser =await userService.addUser(user);
+             UserDTO newUser =await userService.addUser(user);
             //return CreatedAtAction(nameof(Get), new { id = user.Id }, newUser);
             return newUser;
 
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(new { Message = ex.Message });
+                return BadRequest(new { message = ex.Message });
             }
-          
-
         }
 
         [HttpPost("login")]
@@ -78,12 +76,20 @@ namespace pettsStore.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<UserDTO>> Put(int id, [FromBody] UserRegisterDTO updateUser)
         {
-            UserDTO user = await userService.updateUser(id, updateUser);
-            if (user != null)
+            try
             {
-                return Ok(user);
+                 UserDTO user = await userService.updateUser(id, updateUser);
+                 if (user != null)
+                        {
+                          return Ok(user);
+                        }
+                   return NotFound(new { Message = "User not found." });
             }
-            return NotFound(new { Message = "User not found." });
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
         }
 
     }

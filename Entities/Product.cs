@@ -29,11 +29,8 @@ public partial class Product
 
     [ForeignKey("CategoryId")]
     [InverseProperty("Products")]
-    [JsonIgnore]
     public virtual Category Category { get; set; }
 
     [InverseProperty("Product")]
-    [JsonIgnore]
-
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 }

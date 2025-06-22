@@ -3,7 +3,12 @@ newUser = () => {
     const div = document.querySelector("#newUser")
     div.setAttribute("style","visibility:visible")
 }
+showError = (message) => {
+ const errDiv = document.getElementById("error-message");
+    errDiv.innerText = message;
+    errDiv.style.display = "block";
 
+}
 
 
 
@@ -46,12 +51,16 @@ const signUp = async () => {
         });
 
         if (!response.ok) {
-            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+           
+            const errorData = await response.json();
+            const msg = errorData.message || "אירעה שגיאה לא ידועה.";
+            showError(msg);
+            return;
         }
 
         alert("User added");
-    }   catch (error) {
-        alert(error.message);
+    } catch (error) {
+        showError("network error: " + error.message);
     }
 };
 
@@ -87,11 +96,14 @@ const update = async () => {
             headers: { "Content-Type": "application/json" }
         });
         if (!response.ok) {
-            throw new Error(`Error: ${response.status} -- ${response.statusText}`);
-        }
+            const errorData = await response.json();
+            const msg = errorData.message || "אירעה שגיאה לא ידועה.";
+            showError(msg);
+            return;        }
 
         alert("User updated");
     } catch (error) {
-        alert(error.message);
+        showError("network error: " + error.message);
     }
+   
 };
