@@ -12,21 +12,20 @@ namespace Services
 {
        public class ProductServise : IProductServise
       {
-        IProductRepository productRepository;
+        IProductRepository productRepository;// _productRepository
         private readonly IMapper _mapper;
 
         public ProductServise(IProductRepository productRepository,IMapper mapper)
         {
-            this.productRepository = productRepository;
+            this.productRepository = productRepository;// _productRepository = productRepository;
             _mapper = mapper;
 
         }
-
-        public async Task<ProductDTO> getProductById(int id)
+        public async Task<ProductDTO> getProductById(int id)//GetProductById
         {
             return _mapper.Map<Product,ProductDTO > (await productRepository.getProductById(id));
         }
-        public async Task<List<ProductDTO>> getAllProducts(string? desc, int? minPrice, int? maxPrice, int?[] categoriesIds)
+        public async Task<List<ProductDTO>> getAllProducts(string? desc, int? minPrice, int? maxPrice, int?[] categoriesIds)//GetAllProducts
         {
             return _mapper.Map< List < Product>, List<ProductDTO>> (await productRepository.getAllProducts(desc, minPrice, maxPrice, categoriesIds));
         }

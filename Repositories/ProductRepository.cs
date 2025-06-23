@@ -15,15 +15,17 @@ namespace Repositories
         {
             _pettsStoreContext = pettsStoreContext;
         }
-
-        public async Task<Product> getProductById(int id)
+        public async Task<Product> GetProductById(int id) // פונקציה עם אות קטנה - לשנות ל-GetProductById
         {
-            Product product = await _pettsStoreContext.Products.FirstOrDefaultAsync(produt=> produt.Id == id); ;
+            // אפשר לכתוב בקיצור: return await _pettsStoreContext.Products.FirstOrDefaultAsync(product => product.Id == id);
+            // LAMBDA: return await _pettsStoreContext.Products.FirstOrDefaultAsync(product => product.Id == id);
+            Product product = await _pettsStoreContext.Products.FirstOrDefaultAsync(product => product.Id == id); // למחוק שגיאת כתיב produt
             return product;
         }
-
-        public async Task<List<Product>> getAllProducts(string? desc, int? minPrice, int? maxPrice, int?[] categoriesIds )
+        public async Task<List<Product>> GetAllProducts(string? desc, int? minPrice, int? maxPrice, int?[] categoriesIds ) // פונקציה עם אות קטנה - לשנות ל-GetAllProducts
         {
+            // אפשר לכתוב בקיצור: return await _pettsStoreContext.Products.Where(...).OrderBy(...).ToListAsync();
+            // LAMBDA: return await _pettsStoreContext.Products.Where(...).OrderBy(...).ToListAsync();
             var query = _pettsStoreContext.Products.Where(product => (desc == null ? (true) : (product.Description.Contains(desc)))
             && ((minPrice == null) ? (true) : (product.Price >= minPrice))
             && ((maxPrice == null) ? (true) : (product.Price <= maxPrice))
@@ -32,6 +34,5 @@ namespace Repositories
             List<Product> products = await query.ToListAsync();
             return products;
         }
-
     }
 }

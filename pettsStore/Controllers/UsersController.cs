@@ -4,7 +4,7 @@ using Services;
 using System.Linq.Expressions;
 using System.Text.Json;
 using DTOs;
-
+//delete unused code
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace pettsStore.Controllers
@@ -14,7 +14,7 @@ namespace pettsStore.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        IUserService userService;
+        IUserService userService;//_userService
         public UsersController(IUserService userService)
         {
             this.userService = userService;
@@ -40,9 +40,9 @@ namespace pettsStore.Controllers
         {
             try
             { 
-             UserDTO newUser =await userService.addUser(user);
+             return await userService.addUser(user);
             //return CreatedAtAction(nameof(Get), new { id = user.Id }, newUser);
-            return newUser;
+            //return newUser;
 
             }
             catch (ArgumentException ex)
@@ -61,7 +61,7 @@ namespace pettsStore.Controllers
                 return Ok(user);
 
             }
-          return NotFound(new { Message = "User not found." });
+          return NotFound(new { Message = "User not found." });//user != null ? return Ok(user) : return NotFound(new { Message = "User not found." });
         }
 
         [Route("password")]
@@ -83,7 +83,7 @@ namespace pettsStore.Controllers
                         {
                           return Ok(user);
                         }
-                   return NotFound(new { Message = "User not found." });
+                   return NotFound(new { Message = "User not found." });// user != null ? return Ok(user) : return NotFound(new { Message = "User not found." });
             }
             catch (ArgumentException ex)
             {

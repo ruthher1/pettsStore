@@ -9,27 +9,27 @@ namespace Services
 {
     public class UserService : IUserService
     {
-        IUserRepository userRepository;
+        IUserRepository userRepository;//_userRepository
         private readonly IMapper _mapper;
         private readonly ILogger<UserService> _logger;
 
 
         public UserService(IUserRepository userRepository, IMapper mapper, ILogger<UserService> logger)
         {
-            this.userRepository = userRepository;
+            this.userRepository = userRepository;//_userRepository = userRepository;
             _mapper = mapper;
             _logger = logger;
         }
 
-        public async Task<UserDTO> getUserById(int id)
+        public async Task<UserDTO> getUserById(int id)// GetUserById
         {
             return _mapper.Map<User, UserDTO>(await userRepository.getUserById(id));
         }
-        public async Task<List<UserDTO>> getAllUsers()
+        public async Task<List<UserDTO>> getAllUsers()// GetAllUsers
         {
             return _mapper.Map<List<User>, List<UserDTO>>(await userRepository.getAllUsers());
         }
-        public async Task<UserDTO> addUser(UserRegisterDTO user)
+        public async Task<UserDTO> addUser(UserRegisterDTO user)//AddUser
         {
             if(user.FirstName.Length < 2 || user.FirstName.Length > 50)
             {
@@ -49,7 +49,7 @@ namespace Services
             return _mapper.Map<User, UserDTO>(await userRepository.addUser(_mapper.Map<UserRegisterDTO, User>(user)));
         }
 
-        public async Task<UserDTO> updateUser(int id, UserRegisterDTO userUpdate)
+        public async Task<UserDTO> updateUser(int id, UserRegisterDTO userUpdate)//UpdateUser
         {
             if (userUpdate.FirstName.Length < 2 || userUpdate.FirstName.Length > 50)
             {
@@ -70,8 +70,19 @@ namespace Services
             return _mapper.Map<User, UserDTO>(await userRepository.updateUser(id, _mapper.Map<UserRegisterDTO, User>(userUpdate)));
         }
 
-        public async Task<UserDTO> login(UserLoginDTO newUser)
+        public async Task<UserDTO> login(UserLoginDTO newUser)// Login
         {
+            if (!IsValidEmail(newUser.Username))
+            {
+                _logger.LogWarning("Invalid email: {Email}", newUser.Username);
+                throw new ArgumentException("Email is not valid.");
+            }
+
+            if (GetPassStrength(newUser.Password) == false)
+            {
+                throw new ArgumentException("Password is not strong enough.");
+            }
+        
             User user = await userRepository.login(_mapper.Map<UserLoginDTO, User>(newUser));
             if (user == null)
             {

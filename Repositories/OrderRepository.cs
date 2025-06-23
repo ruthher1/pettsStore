@@ -14,13 +14,13 @@ namespace Repositories
         {
             _pettsStoreContext = pettsStoreContext;
         }
-        public async Task<Order> addOrder(Order order)
+        public async Task<Order> AddOrder(Order order) // פונקציה עם אות קטנה - לשנות ל-AddOrder
         {
             await _pettsStoreContext.Orders.AddAsync(order);
             await _pettsStoreContext.SaveChangesAsync();
+            //RETURN OBJECT
             return order;
         }
-
     }
 }
 
